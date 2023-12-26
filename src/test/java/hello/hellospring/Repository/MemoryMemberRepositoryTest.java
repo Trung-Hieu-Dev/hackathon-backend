@@ -3,6 +3,7 @@ package hello.hellospring.Repository;
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -10,6 +11,11 @@ import java.util.List;
 public class MemoryMemberRepositoryTest {
     
     MemoryMemberRepository memoryMemberRepository = new MemoryMemberRepository();
+    
+    @AfterEach
+    public void afterEach() {
+        memoryMemberRepository.clearStore(); // clear store for every @Test methods to keep store empty, to make testing correctly
+    }
 
     @Test
     public void save() {
