@@ -1,6 +1,7 @@
 package hello.hellospring.domain;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Post {
     private Long id;
@@ -59,5 +60,15 @@ public class Post {
     
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+    
+    @Override public boolean equals(Object o) {
+        if (this == o) {return true;}
+        if (!(o instanceof Post post)) {return false;}
+        return Objects.equals(getTitle(), post.getTitle());
+    }
+    
+    @Override public int hashCode() {
+        return Objects.hash(getTitle());
     }
 }

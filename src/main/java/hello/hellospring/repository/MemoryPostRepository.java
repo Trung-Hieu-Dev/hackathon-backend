@@ -26,6 +26,12 @@ public class MemoryPostRepository implements PostRepository{
         return Optional.ofNullable(post);
     }
     
+    @Override public Optional<Post> findByName(String title) {
+        return store.values().stream()
+                    .filter(post -> post.getTitle().equals(title))
+                    .findAny();
+    }
+    
     public void clearStore() {
         store.clear();
     }
