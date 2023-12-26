@@ -3,7 +3,7 @@ package hello.hellospring.domain;
 import java.time.LocalDateTime;
 
 public class Post {
-    private int id;
+    private Long id;
     
     private String title;
     
@@ -21,11 +21,11 @@ public class Post {
         this.content = content;
     }
     
-    public int getId() {
+    public Long getId() {
         return id;
     }
     
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
     
