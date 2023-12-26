@@ -49,8 +49,8 @@ class PostServiceTest {
         post1.setContent("content A");
         
         Post post2 = new Post();
-        post2.setTitle("post B");
-        post2.setContent("content B");
+        post2.setTitle("post A");
+        post2.setContent("content A");
         
         // when
         postService.join(post1);
