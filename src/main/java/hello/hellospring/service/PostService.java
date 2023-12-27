@@ -3,10 +3,12 @@ package hello.hellospring.service;
 
 import hello.hellospring.domain.Post;
 import hello.hellospring.repository.PostRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 public class PostService {
     private final PostRepository postRepository;
     

@@ -43,6 +43,7 @@ public class SpringConfig {
     // PostRepository Bean obj
     @Bean
     public PostRepository postRepository() {
-        return new MemoryPostRepository();
+//        return new MemoryPostRepository();
+        return new PostJdbcTemplateRepository(dataSource);
     }
 }
