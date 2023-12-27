@@ -1,6 +1,6 @@
 package hello.hellospring.repository;
 
-import hello.hellospring.domain.Post;
+import hello.hellospring.domain.Member;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -11,68 +11,62 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-public class PostJdbcTemplateRepository implements PostRepository {
+public class JdbcTemplateMemberRepository implements MemberRepository {
     private final JdbcTemplate jdbcTemplate;
     
-    public PostJdbcTemplateRepository(DataSource dataSource) {
+    public JdbcTemplateMemberRepository(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
     
-    @Override
-    public Post save(Post post) {
+    @Override public Member save(Member member) {
         // create SimpleJdbcInsert obj
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
-        jdbcInsert.withTableName("blog")
+        jdbcInsert.withTableName("member")
                   .usingGeneratedKeyColumns("id");
         
         // data
         HashMap<String, Object> parameters = new HashMap<>();
-        parameters.put("title", post.getTitle());
-        parameters.put("content", post.getContent());
-        parameters.put("createdAt", post.getCreatedAt());
-        parameters.put("updatedAt", post.getUpdatedAt());
+        parameters.put("name", member.getName());
         
         // save to DB and return memberId
-        Number postId = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
+        Number memberId = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
         
         // set member's id
-        post.setId((Long) postId);
+        member.setId((Long) memberId);
         
-        return post;
+        return member;
     }
     
-    @Override
-    public Optional<Post> findById(Long id) {
-        List<Post> result = jdbcTemplate.query(
-                "select * from blog where id = ?",
-                postRowMapper(),
+    @Override public Optional<Member> findById(Long id) {
+        List<Member> result = jdbcTemplate.query(
+                "select * from member where id = ?",
+                memberRowMapper(),
                 id);
         
         return result.stream().findAny();
     }
     
-    @Override public Optional<Post> findByName(String title) {
-        List<Post> result = jdbcTemplate.query(
-                "select * from blog where title = ?",
-                postRowMapper(),
-                title);
+    @Override public Optional<Member> findByName(String name) {
+        List<Member> result = jdbcTemplate.query(
+                "select * from member where name = ?",
+                memberRowMapper(),
+                name);
         
         return result.stream().findAny();
     }
     
-    @Override public List<Post> findAll() {
-        List<Post> result = jdbcTemplate.query("select * from blog", postRowMapper());
+    @Override public List<Member> findAll() {
+        List<Member> result = jdbcTemplate.query("select * from member", memberRowMapper());
         return result;
     }
     
     // RowMapper Configuration
-    private RowMapper<Post> postRowMapper() {
+    private RowMapper<Member> memberRowMapper() {
         return (rs, rowNum) -> {
-                Post post = new Post();
-                post.setId(rs.getLong("id"));
-                post.setTitle(rs.getString("title"));
-                post.setContent(rs.getString("content"));
-                return post;
+                Member member = new Member();
+                member.setId(rs.getLong("id"));
+                member.setName(rs.getString("name"));
+                return member;
         };
     };
         

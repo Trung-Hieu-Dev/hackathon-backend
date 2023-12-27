@@ -31,7 +31,7 @@ public class SpringConfig {
     @Bean
     public MemberRepository memberRepository() {
         //return new MemoryMemberRepository(); // manually
-        return new JdbcTemplateRepository(dataSource); // using JdbcTemplate to work with DB
+        return new JdbcTemplateMemberRepository(dataSource); // using JdbcTemplate to work with DB
     }
     
     // PostService Bean obj
@@ -44,6 +44,6 @@ public class SpringConfig {
     @Bean
     public PostRepository postRepository() {
 //        return new MemoryPostRepository();
-        return new PostJdbcTemplateRepository(dataSource);
+        return new JdbcTemplatePostRepository(dataSource);
     }
 }
