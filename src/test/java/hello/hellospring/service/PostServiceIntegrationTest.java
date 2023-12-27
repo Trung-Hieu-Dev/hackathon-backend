@@ -49,7 +49,4 @@ class PostServiceIntegrationTest {
         assertThrows(IllegalStateException.class, () -> postService.join(post2));
     }
     
-    @Test
-    void findOne() {
-    }
 }

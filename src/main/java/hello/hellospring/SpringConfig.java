@@ -1,9 +1,6 @@
 package hello.hellospring;
 
-import hello.hellospring.repository.JdbcTemplatePostRepository;
-import hello.hellospring.repository.JpaMemberRepository;
-import hello.hellospring.repository.MemberRepository;
-import hello.hellospring.repository.PostRepository;
+import hello.hellospring.repository.*;
 import hello.hellospring.service.MemberService;
 import hello.hellospring.service.PostService;
 import jakarta.persistence.EntityManager;
@@ -16,12 +13,12 @@ import javax.sql.DataSource;
 // create Beans obj
 @Configuration
 public class SpringConfig {
-    private final DataSource dataSource;
+//    private final DataSource dataSource;
     private final EntityManager em;
     
     @Autowired // JDBC
     public SpringConfig(DataSource dataSource, EntityManager em) {
-        this.dataSource = dataSource;
+//        this.dataSource = dataSource;
         this.em = em;
     }
     
@@ -51,6 +48,7 @@ public class SpringConfig {
     @Bean
     public PostRepository postRepository() {
 //        return new MemoryPostRepository();
-        return new JdbcTemplatePostRepository(dataSource);
+//        return new JdbcTemplatePostRepository(dataSource);
+        return new JpaPostRepository(em);
     }
 }

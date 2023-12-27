@@ -1,14 +1,12 @@
 package hello.hellospring.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
+@Table(name = "blog")
 public class Post {
     
     @Id
@@ -19,8 +17,10 @@ public class Post {
     
     private String content;
     
+    @Column(name = "CREATEDAT")
     private LocalDateTime createdAt = LocalDateTime.now();
     
+    @Column(name = "UPDATEDAT")
     private LocalDateTime updatedAt = LocalDateTime.now();
     
     public Post() {
